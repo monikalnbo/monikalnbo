@@ -1,4 +1,4 @@
-## Hi, I'm monika
+## Hi, I'm lnbo
 
 > AI Builder · Agent Workflows · Creative Tools
 
