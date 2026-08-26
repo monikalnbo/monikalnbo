@@ -26,13 +26,20 @@
 ### 📊 GitHub Stats
 
 <p>
-  <img height="160" src="https://github-readme-stats.vercel.app/api?username=monikalnbo&show_icons=true&theme=default" />
-  <img height="160" src="https://github-readme-stats.vercel.app/api/top-langs/?username=monikalnbo&layout=compact&theme=default" />
+  <img height="150" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=monikalnbo&theme=github" />
+  <img height="150" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=monikalnbo&theme=github" />
+</p>
+<p>
+  <img height="150" src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=monikalnbo&theme=github" />
+  <img height="150" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=monikalnbo&theme=github" />
 </p>
 
 ### 🐍 Watch the snake eat my contributions
 
-![snake](https://github.com/monikalnbo/monikalnbo/blob/output/github-contribution-grid-snake.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/monikalnbo/monikalnbo/output/github-contribution-grid-snake-dark.svg" />
+  <img alt="contribution snake" src="https://raw.githubusercontent.com/monikalnbo/monikalnbo/output/github-contribution-grid-snake.svg" />
+</picture>
 
 ---
 
