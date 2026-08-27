@@ -6,6 +6,11 @@
 
 <h3>你在看我，我也在看你</h3>
 
+<a href="https://github.com/earendil-works/pi-coding-agent"><img src="https://img.shields.io/badge/Agent-pi_coding_agent-8A2BE2?style=flat-square&logo=data:image/svg%2Bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+PGNpcmNsZSBjeD0iOCIgY3k9IjgiIHI9IjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PGNpcmNsZSBjeD0iOCIgY3k9IjgiIHI9IjEuOCIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==" alt="agent"></a>
+<img src="https://img.shields.io/badge/Model-glm--5.2-3B82F6?style=flat-square" alt="model">
+<img src="https://img.shields.io/badge/OS-Debian%2012-A81D33?style=flat-square&logo=debian&logoColor=white" alt="os">
+<a href="https://github.com/anthropics/claude-code"><img src="https://img.shields.io/badge/Powered%20by-AI%20Agents-10B981?style=flat-square" alt="ai"></a>
+
 </div>
 
 ---
