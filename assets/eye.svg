@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="220" fill="none">
+  <defs>
+    <radialGradient id="irisGrad" cx="50%" cy="45%" r="60%">
+      <stop offset="0%"  stop-color="#7fd4ff"/>
+      <stop offset="35%" stop-color="#2f8fe0"/>
+      <stop offset="80%" stop-color="#123c6e"/>
+      <stop offset="100%" stop-color="#0a1f3c"/>
+    </radialGradient>
+    <radialGradient id="glare" cx="35%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="rgba(255,255,255,.85)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </radialGradient>
+    <linearGradient id="sclera" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f4f6f9"/>
+      <stop offset="100%" stop-color="#c9d2dc"/>
+    </linearGradient>
+    <clipPath id="eyeClip">
+      <path d="M20 120 C90 30, 310 30, 380 120 C310 210, 90 210, 20 120 Z"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#eyeClip)">
+    <rect width="400" height="240" fill="url(#sclera)"/>
+    <path d="M40 60 C120 90, 180 70, 250 95" stroke="rgba(214,80,80,.18)" stroke-width="1.5"/>
+    <path d="M60 190 C140 165, 210 185, 300 160" stroke="rgba(214,80,80,.15)" stroke-width="1.2"/>
+
+    <g>
+      <circle cx="200" cy="120" r="52" fill="url(#irisGrad)"/>
+      <circle cx="200" cy="120" r="52" stroke="#0b2447" stroke-width="3" fill="none"/>
+      <circle cx="200" cy="120" r="22" fill="#04070d"/>
+      <circle cx="200" cy="120" r="52" fill="url(#glare)"/>
+      <!-- 扫视：左右+上下巡逻 -->
+      <animateTransform attributeName="transform" type="translate" dur="7s" repeatCount="indefinite"
+        values="0 0; -38 8; -38 8; 30 -14; 30 -14; 0 10; 0 0"
+        keyTimes="0; .12; .3; .42; .6; .72; 1"
+        calcMode="spline"
+        keySplines=".4 0 .2 1; 0 0 1 1; .4 0 .2 1; 0 0 1 1; .4 0 .2 1; 0 0 1 1"/>
+    </g>
+
+    <!-- 眨眼眼皮 -->
+    <rect x="-10" y="-130" width="420" height="130" fill="#0b0d13">
+      <animate attributeName="y" dur="6s" repeatCount="indefinite"
+        values="-130; -130; 10; -130; -130"
+        keyTimes="0; .46; .5; .54; 1" calcMode="spline"
+        keySplines="0 0 1 1; .3 0 .7 1; .3 0 .7 1; 0 0 1 1"/>
+    </rect>
+    <rect x="-10" y="240" width="420" height="130" fill="#0b0d13">
+      <animate attributeName="y" dur="6s" repeatCount="indefinite"
+        values="240; 240; 110; 240; 240"
+        keyTimes="0; .46; .5; .54; 1" calcMode="spline"
+        keySplines="0 0 1 1; .3 0 .7 1; .3 0 .7 1; 0 0 1 1"/>
+    </rect>
+  </g>
+
+  <path d="M20 120 C90 30, 310 30, 380 120 C310 210, 90 210, 20 120 Z"
+        stroke="#1c2330" stroke-width="5" stroke-linecap="round"/>
+</svg>

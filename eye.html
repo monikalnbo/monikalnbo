@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>👁</title>
+<style>
+  html, body {
+    margin: 0; padding: 0; width: 100%; height: 100%;
+    overflow: hidden; background: #05060a; cursor: crosshair;
+  }
+  #eye-wrap {
+    position: fixed; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  /* 微弱环境光 */
+  body::before {
+    content: ""; position: fixed; inset: 0;
+    background: radial-gradient(ellipse 60% 45% at 50% 50%, rgba(56,130,246,.07), transparent 70%);
+    pointer-events: none;
+  }
+  svg { width: min(72vmin, 560px); height: auto; display: block; }
+  .lid-top, .lid-bottom { transition: transform .05s linear; }
+  .blink .lid-top    { transform: translateY(46%); }
+  .blink .lid-bottom { transform: translateY(-46%); }
+  .lid-top, .lid-bottom { transition-duration: .09s; }
+</style>
+</head>
+<body>
+<div id="eye-wrap">
+  <svg id="eye" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="irisGrad" cx="50%" cy="45%" r="60%">
+        <stop offset="0%"  stop-color="#7fd4ff"/>
+        <stop offset="35%" stop-color="#2f8fe0"/>
+        <stop offset="80%" stop-color="#123c6e"/>
+        <stop offset="100%" stop-color="#0a1f3c"/>
+      </radialGradient>
+      <radialGradient id="glare" cx="35%" cy="30%" r="50%">
+        <stop offset="0%" stop-color="rgba(255,255,255,.85)"/>
+        <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+      </radialGradient>
+      <linearGradient id="sclera" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#f4f6f9"/>
+        <stop offset="100%" stop-color="#c9d2dc"/>
+      </linearGradient>
+      <clipPath id="eyeClip">
+        <path d="M20 120 C90 30, 310 30, 380 120 C310 210, 90 210, 20 120 Z"/>
+      </clipPath>
+      <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="6"/>
+      </filter>
+    </defs>
+
+    <!-- 眼白 -->
+    <g clip-path="url(#eyeClip)">
+      <rect x="0" y="0" width="400" height="240" fill="url(#sclera)"/>
+      <!-- 血丝（极淡） -->
+      <path d="M40 60 C120 90, 180 70, 250 95" stroke="rgba(214,80,80,.18)" stroke-width="1.5" fill="none"/>
+      <path d="M60 190 C140 165, 210 185, 300 160" stroke="rgba(214,80,80,.15)" stroke-width="1.2" fill="none"/>
+      <path d="M330 70 C350 95, 355 120, 350 150" stroke="rgba(214,80,80,.14)" stroke-width="1.2" fill="none"/>
+
+      <!-- 虹膜+瞳孔（JS 驱动） -->
+      <g id="irisGroup">
+        <circle id="iris" cx="200" cy="120" r="52" fill="url(#irisGrad)"/>
+        <circle id="irisRing" cx="200" cy="120" r="52" fill="none" stroke="#0b2447" stroke-width="3"/>
+        <circle id="pupil" cx="200" cy="120" r="22" fill="#04070d"/>
+        <circle id="glareDot" cx="200" cy="120" r="52" fill="url(#glare)"/>
+      </g>
+
+      <!-- 上下眼皮（眨眼） -->
+      <rect class="lid-top"    x="-10" y="-130" width="420" height="130" fill="#0b0d13"/>
+      <rect class="lid-bottom" x="-10" y="240"   width="420" height="130" fill="#0b0d13"/>
+    </g>
+
+    <!-- 轮廓 -->
+    <path d="M20 120 C90 30, 310 30, 380 120 C310 210, 90 210, 20 120 Z"
+          stroke="#1c2330" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <!-- 外发光 -->
+    <path d="M20 120 C90 30, 310 30, 380 120 C310 210, 90 210, 20 120 Z"
+          stroke="rgba(80,140,255,.25)" stroke-width="14" fill="none" filter="url(#soft)"/>
+  </svg>
+</div>
+
+<script>
+(function () {
+  const irisGroup = document.getElementById("irisGroup");
+  const parts = ["iris", "irisRing", "pupil", "glareDot"].map(id => document.getElementById(id));
+  const eyeEl  = document.getElementById("eye");
+  const CX = 200, CY = 120;          // 眼心（SVG 坐标）
+  const MAX_R = 52;                  // 虹膜最大活动半径（贴着眼眶）
+
+  let tx = CX, ty = CY;              // 目标
+  let cx = CX, cy = CY;              // 当前
+
+  function pointTo(clientX, clientY) {
+    const r = eyeEl.getBoundingClientRect();
+    const scale = 400 / r.width;     // 屏幕 → SVG 坐标
+    const ex = (clientX - r.left) * scale;
+    const ey = (clientY - r.top)  * (240 / r.height) * (r.width / r.width);
+    // 以眼心为原点求方向
+    const dx = ex - CX;
+    const dy = (clientY - r.top) * (240 / r.height) - CY;
+    const dist = Math.hypot(dx, dy) || 1;
+    const k = Math.min(1, MAX_R / (dist * 0.55));   // 越远越贴边
+    tx = CX + dx * k * 0.85;
+    ty = CY + dy * k * 0.85;
+  }
+
+  window.addEventListener("mousemove", e => pointTo(e.clientX, e.clientY), { passive: true });
+  window.addEventListener("touchmove", e => {
+    const t = e.touches[0]; if (t) pointTo(t.clientX, t.clientY);
+  }, { passive: true });
+  // 初始看向右下（鼠标常在的位置）
+  tx = CX + 40; ty = CY + 18;
+
+  // 平滑追踪
+  let raf;
+  (function loop() {
+    cx += (tx - cx) * 0.16;
+    cy += (ty - cy) * 0.16;
+    const ox = cx - CX, oy = cy - CY;
+    parts.forEach(el => el.setAttribute("transform", `translate(${ox.toFixed(2)} ${oy.toFixed(2)})`));
+    irisGroup.setAttribute("transform", `translate(${ox.toFixed(2)} ${oy.toFixed(2)})`);
+    raf = requestAnimationFrame(loop);
+  })();
+
+  // 随机眨眼
+  function blink() {
+    eyeEl.classList.add("blink");
+    setTimeout(() => eyeEl.classList.remove("blink"), 130);
+    setTimeout(blink, 2200 + Math.random() * 3800);
+  }
+  setTimeout(blink, 1800);
+})();
+</script>
+</body>
+</html>
