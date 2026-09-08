@@ -1,10 +1,10 @@
 <div align="center">
 
-<a href="https://monikalnbo.github.io/monikalnbo/eye.html" title="点我">
-  <img src="assets/eye.svg" width="280" alt="eye">
+<a href="https://monikalnbo.github.io/monikalnbo/ride.html" title="点我">
+  <img src="assets/pelican.svg" width="300" alt="鹈鹕在海边骑单车">
 </a>
 
-<h3>你在看我，我也在看你</h3>
+<h3>海边有只鹈鹕，骑车追风</h3>
 
 <a href="https://github.com/earendil-works/pi-coding-agent"><img src="https://img.shields.io/badge/Agent-pi_coding_agent-8A2BE2?style=flat-square&logo=data:image/svg%2Bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+PGNpcmNsZSBjeD0iOCIgY3k9IjgiIHI9IjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PGNpcmNsZSBjeD0iOCIgY3k9IjgiIHI9IjEuOCIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==" alt="agent"></a>
 <a href="https://github.com/monikalnbo/hermes-studio"><img src="https://img.shields.io/badge/Ecosystem-Hermes_Agent-F0932B?style=flat-square&logo=telegraph&logoColor=white" alt="hermes"></a>
