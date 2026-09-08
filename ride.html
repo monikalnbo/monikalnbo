@@ -50,7 +50,22 @@
   /* 速度线 */
   #speed { opacity: .35; transition: opacity .25s; }
 
+  /* 踩踏板：曲柄旋转 + 双腿交替摆动 */
+  #crank {
+    transform-box: view-box; transform-origin: 260px 385px;
+    animation: spin 1.8s linear infinite;
+  }
+  .pedal {
+    transform-box: fill-box; transform-origin: center;
+    animation: spin-inv 1.8s linear infinite;
+  }
+  #leg-far  { transform-box: view-box; transform-origin: 242px 292px; animation: swingA 1.8s ease-in-out infinite; }
+  #leg-near { transform-box: view-box; transform-origin: 250px 296px; animation: swingB 1.8s ease-in-out infinite; }
+
   @keyframes spin    { to { transform: rotate(360deg); } }
+  @keyframes spin-inv{ to { transform: rotate(-360deg); } }
+  @keyframes swingA  { 0%,100% { transform: rotate(10deg); }  50% { transform: rotate(-10deg); } }
+  @keyframes swingB  { 0%,100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
   @keyframes bob     { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2.5px); } }
   @keyframes flutter { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(7deg); } }
   @keyframes dashmove{ to { stroke-dashoffset: -104; } }
@@ -66,6 +81,7 @@
   body.boost #wheel-rear, body.boost #wheel-front { animation-duration: .28s; }
   body.boost #pelican   { animation-duration: .32s; }
   body.boost #roaddash  { animation-duration: .14s; }
+  body.boost #crank, body.boost #leg-far, body.boost #leg-near { animation-duration: .56s; }
   body.boost #speed     { opacity: .95; }
   body.boost #fish      { animation: fishjump .7s ease-in-out; }
 
@@ -184,10 +200,11 @@
       <circle cx="335" cy="398" r="9" fill="#57606f"/>
     </g>
 
-    <!-- far leg + far pedal + far foot (behind frame) -->
-    <path d="M242 292 Q 238 336 246 410" fill="none" stroke="#d98c0f" stroke-width="8" stroke-linecap="round"/>
-    <rect x="236" y="407" width="20" height="7" rx="2" fill="#2f3640"/>
-    <path d="M236 404 q10,-7 20,0 l-5,8 q-5,3 -10,-1 z" fill="#d98c0f"/>
+    <!-- far leg (swinging, behind frame) -->
+    <g id="leg-far">
+      <path d="M242 292 Q 238 336 246 410" fill="none" stroke="#d98c0f" stroke-width="8" stroke-linecap="round"/>
+      <path d="M236 404 q10,-7 20,0 l-5,8 q-5,3 -10,-1 z" fill="#d98c0f"/>
+    </g>
 
     <!-- frame -->
     <g fill="none" stroke="#2ba8a0" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
@@ -206,10 +223,14 @@
       <path d="M326 250 L336 257" stroke="#4a3728" stroke-width="8"/>
     </g>
 
-    <!-- crank + near pedal -->
-    <circle cx="260" cy="385" r="13" fill="none" stroke="#57606f" stroke-width="5"/>
-    <line x1="260" y1="385" x2="273" y2="358" stroke="#57606f" stroke-width="6" stroke-linecap="round"/>
-    <rect x="264" y="353" width="20" height="7" rx="2" fill="#2f3640"/>
+    <!-- crank + pedals（旋转，踏板保持水平） -->
+    <g id="crank">
+      <circle cx="260" cy="385" r="13" fill="none" stroke="#57606f" stroke-width="5"/>
+      <line x1="260" y1="385" x2="247" y2="412" stroke="#57606f" stroke-width="6" stroke-linecap="round"/>
+      <line x1="260" y1="385" x2="273" y2="358" stroke="#57606f" stroke-width="6" stroke-linecap="round"/>
+      <g class="pedal"><rect x="236" y="407" width="20" height="7" rx="2" fill="#2f3640"/></g>
+      <g class="pedal"><rect x="264" y="353" width="20" height="7" rx="2" fill="#2f3640"/></g>
+    </g>
 
     <!-- pelican -->
     <g id="pelican">
@@ -260,8 +281,10 @@
       <!-- near wing on handlebar -->
       <path d="M266 246 Q 294 252 322 262" fill="none" stroke="#e3decd" stroke-width="20" stroke-linecap="round"/>
       <path d="M266 246 Q 294 252 322 262" fill="none" stroke="#fdfdf6" stroke-width="15" stroke-linecap="round"/>
+    </g>
 
-      <!-- near leg + webbed foot -->
+    <!-- near leg (swinging, opposite phase) -->
+    <g id="leg-near">
       <path d="M250 296 Q 254 330 271 356" fill="none" stroke="#f5a623" stroke-width="9" stroke-linecap="round"/>
       <path d="M262 352 q10,-7 20,1 l-5,8 q-6,3 -11,-1 z" fill="#f5a623" stroke="#d98c0f" stroke-width="1.5"/>
     </g>
